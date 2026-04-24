@@ -118,42 +118,66 @@ impl App {
                         KeyCode::Up => {
                             self.mouse.move_up(&self.maze);
                             *should_redraw = true;
-                            info!("Mouse moved Up to ({:.1}, {:.1})", self.mouse.x, self.mouse.y);
+                            info!(
+                                "Mouse moved Up to ({:.1}, {:.1})",
+                                self.mouse.x, self.mouse.y
+                            );
                         }
                         KeyCode::Down => {
                             self.mouse.move_down(&self.maze);
                             *should_redraw = true;
-                            info!("Mouse moved Down to ({:.1}, {:.1})", self.mouse.x, self.mouse.y);
+                            info!(
+                                "Mouse moved Down to ({:.1}, {:.1})",
+                                self.mouse.x, self.mouse.y
+                            );
                         }
                         KeyCode::Left => {
                             self.mouse.move_left(&self.maze);
                             *should_redraw = true;
-                            info!("Mouse moved Left to ({:.1}, {:.1})", self.mouse.x, self.mouse.y);
+                            info!(
+                                "Mouse moved Left to ({:.1}, {:.1})",
+                                self.mouse.x, self.mouse.y
+                            );
                         }
                         KeyCode::Right => {
                             self.mouse.move_right(&self.maze);
                             *should_redraw = true;
-                            info!("Mouse moved Right to ({:.1}, {:.1})", self.mouse.x, self.mouse.y);
+                            info!(
+                                "Mouse moved Right to ({:.1}, {:.1})",
+                                self.mouse.x, self.mouse.y
+                            );
                         }
                         KeyCode::Char('y') => {
                             self.mouse.move_up_left(&self.maze);
                             *should_redraw = true;
-                            info!("Mouse moved Up-Left to ({:.1}, {:.1})", self.mouse.x, self.mouse.y);
+                            info!(
+                                "Mouse moved Up-Left to ({:.1}, {:.1})",
+                                self.mouse.x, self.mouse.y
+                            );
                         }
                         KeyCode::Char('u') => {
                             self.mouse.move_up_right(&self.maze);
                             *should_redraw = true;
-                            info!("Mouse moved Up-Right to ({:.1}, {:.1})", self.mouse.x, self.mouse.y);
+                            info!(
+                                "Mouse moved Up-Right to ({:.1}, {:.1})",
+                                self.mouse.x, self.mouse.y
+                            );
                         }
                         KeyCode::Char('b') => {
                             self.mouse.move_down_left(&self.maze);
                             *should_redraw = true;
-                            info!("Mouse moved Down-Left to ({:.1}, {:.1})", self.mouse.x, self.mouse.y);
+                            info!(
+                                "Mouse moved Down-Left to ({:.1}, {:.1})",
+                                self.mouse.x, self.mouse.y
+                            );
                         }
                         KeyCode::Char('n') => {
                             self.mouse.move_down_right(&self.maze);
                             *should_redraw = true;
-                            info!("Mouse moved Down-Right to ({:.1}, {:.1})", self.mouse.x, self.mouse.y);
+                            info!(
+                                "Mouse moved Down-Right to ({:.1}, {:.1})",
+                                self.mouse.x, self.mouse.y
+                            );
                         }
                         _ => {}
                     }
@@ -162,8 +186,7 @@ impl App {
         }
         Ok(())
     }
-    }
-
+}
 
 impl Widget for &App {
     fn render(self, area: Rect, buf: &mut Buffer) {
