@@ -11,12 +11,45 @@ env:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Check commit count
+      if: github.event_name == 'pull_request'
+      env:
+        PR_COMMITS: ${{ github.event.pull_request.commits }}
+      run: |
+        echo "Found $PR_COMMITS commits in PR"
+        if [ "$PR_COMMITS" -ne 1 ]; then
+          echo "Error: PR must have exactly one commit (found $PR_COMMITS). Please squash your commits."
+          exit 1
+        fi
+
+    - name: Check PR number in commit message
+      if: github.event_name == 'pull_request'
+      env:
+        PR_NUMBER: ${{ github.event.pull_request.number }}
+        HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+      run: |
+        COMMIT_MSG=$(git log -1 --format=%B $HEAD_SHA)
+        echo "Checking commit message for (#$PR_NUMBER)"
+        if [[ ! "$COMMIT_MSG" =~ \(#$PR_NUMBER\) ]]; then
+          echo "Error: Commit message must contain the PR number in the format (#$PR_NUMBER)."
+          echo "Current message: $COMMIT_MSG"
+          exit 1
+        fi
+
+    - name: Install rustfmt
+      run: rustup component add rustfmt
+
+    - name: Format check
+      run: cargo fmt --check
+
     - name: Build
       run: cargo build --verbose
+
     - name: Run tests
       run: cargo test --verbose
